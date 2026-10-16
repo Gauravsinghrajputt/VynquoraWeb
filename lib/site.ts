@@ -5,9 +5,8 @@
 
 export const site = {
   name: "Vynquora",
-  // Registered company name. Leave "" until it's confirmed — the footer
-  // then shows just "Vynquora". Example: "Vynquora Global Services".
-  legalName: "",
+  // Registered company name (footer copyright, About, Privacy, Terms).
+  legalName: "Vynquora Global Services",
   domain: "vynquora.com",
   url: "https://vynquora.com",
   tagline: "Software development company in Bengaluru",
@@ -28,13 +27,13 @@ export const site = {
   hours: "Mon to Sat, 10am to 7pm IST",
 
   address: {
-    locality: "Koramangala",
+    locality: "Koramangala 5th Block",
     city: "Bengaluru",
     region: "Karnataka",
     country: "IN",
     countryName: "India",
   },
-  location: "Koramangala, Bengaluru, India · Working with clients worldwide",
+  location: "Working with clients in India and worldwide",
 
   // Social profiles. Leave "" to hide an icon.
   socials: {
