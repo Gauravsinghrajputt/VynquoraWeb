@@ -24,8 +24,19 @@ export default function Home() {
   const featured = projects.filter((p) => p.featured).slice(0, 3);
   const waLink = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(`Hi ${site.name}, I'd like to discuss a project.`)}`;
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <Header />
       <main id="top">
         {/* ───────────── Hero ───────────── */}
@@ -43,7 +54,7 @@ export default function Home() {
                 We build the software your business runs on.
               </h1>
               <p className="mt-6 max-w-xl text-lg sm:text-xl text-muted leading-relaxed">
-                Web apps, mobile apps, AI features and the cloud behind them, designed, built and supported by one senior team.
+                Web apps, mobile apps, AI features and the cloud behind them, designed, built and supported by one dedicated team.
                 You talk directly to the engineers writing your code.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -172,10 +183,10 @@ export default function Home() {
             <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr]">
               <div>
                 <h2 className="text-[2.1rem] sm:text-5xl font-semibold tracking-[-0.035em] leading-[1.05]">
-                  A small senior team is a feature, not a risk.
+                  A focused team that owns your project end to end.
                 </h2>
                 <p className="mt-6 text-lg leading-relaxed opacity-75">
-                  You won&apos;t be handed to juniors after the sales call. The people who plan your product are the people who build and support it, and we bring in specialists when a project needs them.
+                  No hand-offs after the sales call. The people who plan your product are the people who build, ship and support it, and we bring in specialists when a project needs them.
                 </p>
               </div>
               <div className="grid gap-px overflow-hidden rounded-3xl bg-white/10 dark:bg-line sm:grid-cols-2">
@@ -243,7 +254,16 @@ export default function Home() {
                     <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand"><Icon.mail /></span>
                     <span>
                       <span className="block font-medium">{site.email}</span>
-                      <span className="block text-sm text-muted">For proposals and documents</span>
+                      <span className="block text-sm text-muted">Project enquiries and proposals</span>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href={`mailto:${site.partnerEmail}`} className="group flex items-center gap-4 rounded-2xl border border-line bg-card p-4 hover:border-silver transition-colors">
+                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand"><Icon.mail /></span>
+                    <span>
+                      <span className="block font-medium">{site.partnerEmail}</span>
+                      <span className="block text-sm text-muted">Partnerships and vendor onboarding</span>
                     </span>
                   </a>
                 </li>
@@ -252,11 +272,24 @@ export default function Home() {
                     <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand"><Icon.call /></span>
                     <span>
                       <span className="block font-medium">{site.phone}</span>
-                      <span className="block text-sm text-muted">Mon to Sat, 10am to 7pm IST</span>
+                      <span className="block text-sm text-muted">{site.hours}</span>
                     </span>
                   </a>
                 </li>
               </ul>
+              {site.socials.linkedin && (
+                <p className="mt-6 text-sm text-muted">
+                  Follow our work on{" "}
+                  <a href={site.socials.linkedin} target="_blank" rel="noopener noreferrer" className="font-medium text-ink underline-offset-4 hover:underline">LinkedIn</a>
+                  {site.socials.x && (
+                    <>
+                      {" "}and{" "}
+                      <a href={site.socials.x} target="_blank" rel="noopener noreferrer" className="font-medium text-ink underline-offset-4 hover:underline">X</a>
+                    </>
+                  )}
+                  .
+                </p>
+              )}
             </div>
             <ContactForm />
           </div>

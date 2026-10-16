@@ -1,9 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { site, projectTypes, budgets } from "@/lib/site";
+import { site, projectTypes, timelines } from "@/lib/site";
 
 type Status = "idle" | "sending" | "sent" | "error";
+
+// Free key from https://web3forms.com — set NEXT_PUBLIC_WEB3FORMS_KEY in Vercel.
+// The key is designed to be public: it can only send mail to the inbox it was created for.
+const FORM_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
 
 const field =
   "mt-1.5 w-full rounded-xl border border-line bg-card px-4 py-3 text-[15px] text-ink placeholder:text-muted/70 outline-none transition-colors focus:border-brand focus:ring-4 focus:ring-brand/15";
@@ -11,50 +15,73 @@ const field =
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [type, setType] = useState(projectTypes[0]);
-  const [budget, setBudget] = useState(budgets[budgets.length - 1]);
+  const [timeline, setTimeline] = useState<string>("");
+  const [error, setError] = useState("");
+
+  const waLink = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(`Hi ${site.name}, I'd like to discuss a project.`)}`;
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
-    const key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
 
-    // No form key configured: hand off to the visitor's email app.
-    if (!key) {
-      const body = `Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || "-"}\nProject: ${type}\nBudget: ${budget}\n\n${data.message}`;
-      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(`New project enquiry from ${data.name}`)}&body=${encodeURIComponent(body)}`;
-      return;
+    // Spam trap: real people never see or fill this field.
+    if (data.botcheck) return;
+
+    const name = (data.name || "").trim();
+    const email = (data.email || "").trim();
+    const message = (data.message || "").trim();
+    if (name.length < 2) return fail("Please enter your name.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return fail("Please enter a valid email address.");
+    if (message.length < 10) return fail("Please tell us a little more about the project.");
+
+    if (!FORM_KEY) {
+      // Site owner hasn't added the form key yet: say so honestly instead of failing silently.
+      return fail(`Our form is being set up. Please email us at ${site.email}, or`);
     }
 
+    setError("");
     setStatus("sending");
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          access_key: key,
-          subject: `New project enquiry from ${data.name}`,
+          access_key: FORM_KEY,
+          subject: `New project enquiry from ${name}`,
           from_name: `${site.name} website`,
-          ...data,
+          replyto: email,
+          name,
+          email,
+          company: (data.company || "").trim() || "-",
+          phone: (data.phone || "").trim() || "-",
           project_type: type,
-          budget,
+          timeline: timeline || "Not specified",
+          message,
+          botcheck: "",
         }),
       });
-      const json = await res.json();
-      if (json.success) {
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.success) {
         setStatus("sent");
         form.reset();
+        setTimeline("");
       } else {
-        setStatus("error");
+        fail(`Your message didn't send. Please try again, email us at ${site.email}, or`);
       }
     } catch {
-      setStatus("error");
+      fail(`Your message didn't send. Check your connection and try again, email us at ${site.email}, or`);
     }
+  }
+
+  function fail(msg: string) {
+    setError(msg);
+    setStatus("error");
   }
 
   if (status === "sent") {
     return (
-      <div className="rounded-3xl border border-line bg-card p-8 sm:p-10">
+      <div className="rounded-3xl border border-line bg-card p-8 sm:p-10" role="status">
         <p className="text-2xl font-semibold tracking-tight">Thanks, we&apos;ve got your message.</p>
         <p className="mt-3 text-muted">
           We&apos;ll reply within one working day to set up a call. Need us sooner? Message us on WhatsApp.
@@ -72,7 +99,10 @@ export default function ContactForm() {
     }`;
 
   return (
-    <form onSubmit={onSubmit} className="rounded-3xl border border-line bg-card p-6 sm:p-9">
+    <form onSubmit={onSubmit} noValidate className="rounded-3xl border border-line bg-card p-6 sm:p-9">
+      {/* honeypot for bots */}
+      <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="block">
           <span className="text-sm font-medium">Your name</span>
@@ -82,7 +112,11 @@ export default function ContactForm() {
           <span className="text-sm font-medium">Work email</span>
           <input name="email" type="email" required autoComplete="email" placeholder="you@company.com" className={field} />
         </label>
-        <label className="block sm:col-span-2">
+        <label className="block">
+          <span className="text-sm font-medium">Company <span className="text-muted font-normal">(optional)</span></span>
+          <input name="company" autoComplete="organization" placeholder="Company name" className={field} />
+        </label>
+        <label className="block">
           <span className="text-sm font-medium">Phone or WhatsApp <span className="text-muted font-normal">(optional)</span></span>
           <input name="phone" type="tel" autoComplete="tel" placeholder="+91" className={field} />
         </label>
@@ -100,11 +134,17 @@ export default function ContactForm() {
       </fieldset>
 
       <fieldset className="mt-6">
-        <legend className="text-sm font-medium">Rough budget</legend>
+        <legend className="text-sm font-medium">When do you want to start? <span className="text-muted font-normal">(optional)</span></legend>
         <div className="mt-2.5 flex flex-wrap gap-2">
-          {budgets.map((b) => (
-            <button type="button" key={b} aria-pressed={budget === b} onClick={() => setBudget(b)} className={chip(budget === b)}>
-              {b}
+          {timelines.map((t) => (
+            <button
+              type="button"
+              key={t}
+              aria-pressed={timeline === t}
+              onClick={() => setTimeline(timeline === t ? "" : t)}
+              className={chip(timeline === t)}
+            >
+              {t}
             </button>
           ))}
         </div>
@@ -121,9 +161,12 @@ export default function ContactForm() {
         />
       </label>
 
-      {status === "error" && (
+      {status === "error" && error && (
         <p className="mt-4 text-sm text-red-600 dark:text-red-400" role="alert">
-          Your message didn&apos;t send. Check your connection and try again, or email us at {site.email}.
+          {error}{" "}
+          <a href={waLink} target="_blank" rel="noreferrer" className="font-medium underline underline-offset-2">
+            Message us on WhatsApp
+          </a>
         </p>
       )}
 

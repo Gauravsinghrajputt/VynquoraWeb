@@ -1,39 +1,37 @@
 # Vynquora website
 
-Company website built with Next.js 16, React 19, Tailwind CSS 4 and the Geist font.
+Next.js 16 · React 19 · Tailwind CSS 4.
 
 ## Edit the content
+Almost everything (company details, emails, socials, services, projects, FAQ) lives in **`lib/site.ts`**.
 
-Almost everything (company details, services, projects, FAQ, stats, social links)
-lives in **`lib/site.ts`**. Change the text there and redeploy.
+- **Logo:** put your file at `public/vynquora_logo.png` (transparent PNG, 512×512 or larger).
+  It is used in the header, footer, browser tab and link-share image.
+  If the logo image already contains the word "Vynquora", set `logoHasName: true` in `lib/site.ts`.
+- **Legal name:** set `legalName` in `lib/site.ts` once the registered name is confirmed (footer, About, Privacy, Terms).
+- **Socials:** `socials` in `lib/site.ts` (LinkedIn and X are set).
+- **Google Search Console:** paste the verification code into `googleVerification`.
 
-- Social links: replace `"#"` with your profile URLs (or `""` to hide an icon).
-- Kriti live link: set `liveUrl` in the Kriti project entry.
-- Project screenshots: `public/work/`.
-- Logo: `components/Logo.tsx` (site) and `app/icon.svg` (browser tab).
+## Pages
+`/` home · `/work` · `/work/<slug>` · `/about` · `/privacy` · `/terms` · custom 404.
+SEO files are generated automatically: `/sitemap.xml`, `/robots.txt`, `/manifest.webmanifest`, `/opengraph-image`.
 
 ## Add a project
+1. Screenshots in `public/work/` (1600×1000 `.webp` works best).
+2. Copy the commented example at the end of `projects` in `lib/site.ts`.
+3. `featured: true` shows it on the homepage (first 3 only).
 
-1. Save screenshots in `public/work/` (1600×1000 `.webp` or `.png` works best).
-2. In `lib/site.ts`, copy the commented example at the end of `projects` and fill it in.
-3. `featured: true` shows it on the homepage (first 3 only). Every project appears on `/work`
-   and gets its own page at `/work/<slug>` automatically.
+## Contact form (Web3Forms)
+1. Go to https://web3forms.com → enter `info@vynquora.com` → you get an access key by email.
+2. Vercel → Project → Settings → Environment Variables → add `NEXT_PUBLIC_WEB3FORMS_KEY` = the key.
+3. Redeploy. Until the key is set, the form asks visitors to email or WhatsApp instead.
 
 ## Run locally
-
 ```bash
 npm install
 npm run dev     # http://localhost:3000
 ```
-
-## Contact form
-
-1. Get a free access key at https://web3forms.com (enter the company email).
-2. Add it as `NEXT_PUBLIC_WEB3FORMS_KEY` in Vercel → Project → Settings → Environment Variables, then redeploy.
-
-Without the key the form opens the visitor's email app instead, so it still works.
+For local testing of the form, copy `.env.example` to `.env.local` and add the key.
 
 ## Deploy (Vercel)
-
-Push to GitHub → Vercel → Add New Project → import the repo → Deploy.
-Then Settings → Domains → add `vynquora.com` and follow the DNS steps shown.
+Push to GitHub → Vercel → import the repo → Deploy. Settings → Domains → add `vynquora.com`.

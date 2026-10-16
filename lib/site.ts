@@ -5,24 +5,47 @@
 
 export const site = {
   name: "Vynquora",
+  // Registered company name. Leave "" until it's confirmed — the footer
+  // then shows just "Vynquora". Example: "Vynquora Global Services".
+  legalName: "",
   domain: "vynquora.com",
   url: "https://vynquora.com",
-  tagline: "Product engineering studio",
+  tagline: "Software development company in Bengaluru",
   description:
-    "Vynquora designs, builds and supports web apps, mobile apps, AI features and cloud infrastructure for growing businesses.",
-  email: "hello@vynquora.com",
+    "Vynquora is a software development company in Bengaluru that designs, builds and supports web apps, mobile apps, AI features and cloud infrastructure for businesses.",
+
+  // Logo file in /public. Put your logo there with exactly this name.
+  logo: "/vynquora_logo.png",
+  // true = the logo image already contains the word "Vynquora",
+  // so the text next to it is hidden.
+  logoHasName: false,
+
+  email: "info@vynquora.com",          // enquiries, proposals, contact form
+  partnerEmail: "team@vynquora.com",   // partnerships & vendor onboarding
   phone: "+91 84272 59874",
   // WhatsApp number: country code + number, digits only
   whatsapp: "918427259874",
-  location: "Based in India, working with clients worldwide",
+  hours: "Mon to Sat, 10am to 7pm IST",
 
-  // Paste real profile links here. Leave "" to hide an icon.
-  socials: {
-    linkedin: "#",
-    github: "#",
-    x: "#",
-    instagram: "#",
+  address: {
+    locality: "Koramangala",
+    city: "Bengaluru",
+    region: "Karnataka",
+    country: "IN",
+    countryName: "India",
   },
+  location: "Koramangala, Bengaluru, India · Working with clients worldwide",
+
+  // Social profiles. Leave "" to hide an icon.
+  socials: {
+    linkedin: "https://www.linkedin.com/company/vynquora",
+    x: "https://x.com/vynquora",
+  },
+  xHandle: "@vynquora",
+
+  // Paste the code from Google Search Console → HTML tag method
+  // (only the content="..." value). Leave "" if not using it.
+  googleVerification: "",
 };
 
 // Keep these honest — every one should hold up if a client asks.
@@ -136,7 +159,7 @@ export const projects: Project[] = [
       { src: "/work/kriti-home.webp", alt: "Kriti home screen with ready-made prompts" },
       { src: "/work/kriti-credits.webp", alt: "Kriti credit plans page" },
     ],
-    liveUrl: "", // ← paste the Kriti link here
+    liveUrl: "https://kriti-ai-web-kappa.vercel.app",
     featured: true,
   },
   {
@@ -152,7 +175,7 @@ export const projects: Project[] = [
       "Live admin dashboard: who is online, idle or working, and today's output",
       "Pause and assign controls, activity logs and daily Excel reports",
     ],
-    stack: ["React", "Supabase", "Browser automation", "Vercel"], // ← check
+    stack: ["React", "Supabase", "Browser automation", "Vercel"],
     image: "/work/verify-admin.webp",
     imageAlt: "Admin dashboard showing reviewers, queue size and records approved today",
     gallery: [
@@ -175,7 +198,7 @@ export const projects: Project[] = [
       "Teams, targets, attendance, reports and a full audit log",
       "Installs on the phone like an app, straight from the browser",
     ],
-    stack: ["React", "Node.js", "Express", "MongoDB", "Vercel"], // ← check
+    stack: ["React", "Node.js", "Express", "MongoDB", "Vercel"],
     image: "/work/depms-entry.webp",
     imageAlt: "DEPMS daily entry screen with hourly output and progress against the daily target",
     gallery: [
@@ -197,7 +220,7 @@ export const projects: Project[] = [
       "Cart and guest checkout, with free-delivery threshold and returns info",
       "Prices in rupees, mobile-friendly and accessible",
     ],
-    stack: ["React", "Vercel"], // ← check
+    stack: ["React", "Vercel"],
     image: "/work/ministore-home.webp",
     imageAlt: "Mini Store home page with featured products",
     liveUrl: "https://ecommerce-platform-nu-dun.vercel.app",
@@ -281,6 +304,10 @@ export const faqs = [
     a: "Yes. We start with a short code review, tell you honestly what's working and what isn't, and then fix or extend it.",
   },
   {
+    q: "Do you work as a vendor or partner for larger companies?",
+    a: "Yes. We sign NDAs and vendor agreements, work within your security and access rules, and give you one point of contact who is also an engineer on the project. Write to us at team@vynquora.com for partnership or vendor onboarding.",
+  },
+  {
     q: "What happens after launch?",
     a: "You get 30 days of free support. After that, you can choose a monthly maintenance plan or call us only when you need something.",
   },
@@ -295,10 +322,9 @@ export const projectTypes = [
   "Something else",
 ];
 
-export const budgets = [
-  "Under ₹1 lakh",
-  "₹1–3 lakh",
-  "₹3–10 lakh",
-  "₹10 lakh+",
-  "Not sure yet",
+// Optional field on the contact form. Kept neutral on purpose.
+export const timelines = [
+  "As soon as possible",
+  "In 1–3 months",
+  "Just exploring",
 ];

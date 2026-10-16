@@ -9,8 +9,9 @@ import { Icon } from "./Icons";
 const nav = [
   { href: "/#services", label: "Services" },
   { href: "/work", label: "Work" },
+  { href: "/about", label: "About" },
   { href: "/#process", label: "Process" },
-  { href: "/#faq", label: "FAQ" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Header() {
