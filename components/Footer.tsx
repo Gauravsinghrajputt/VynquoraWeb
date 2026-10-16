@@ -42,7 +42,6 @@ export default function Footer() {
             <p className="text-sm font-semibold">Contact</p>
             <ul className="mt-4 space-y-3 text-[15px]">
               <li><a href={`mailto:${site.email}`} className="text-muted hover:text-ink">{site.email}</a></li>
-              <li><a href={`mailto:${site.partnerEmail}`} className="text-muted hover:text-ink">{site.partnerEmail}</a></li>
               <li><a href={`tel:${site.phone.replace(/\s/g, "")}`} className="text-muted hover:text-ink">{site.phone}</a></li>
               <li><a href={waLink} target="_blank" rel="noreferrer" className="text-muted hover:text-ink">WhatsApp</a></li>
             </ul>

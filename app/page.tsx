@@ -36,7 +36,6 @@ export default function Home() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <Header />
       <main id="top">
         {/* ───────────── Hero ───────────── */}
@@ -230,7 +229,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ───────────── Contact ───────────── */}
+                {/* ───────────── Contact ───────────── */}
         <section id="contact" className="border-t border-line bg-bg-alt py-24 sm:py-32">
           <div className={`${container} grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16`}>
             <div>
@@ -254,16 +253,7 @@ export default function Home() {
                     <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand"><Icon.mail /></span>
                     <span>
                       <span className="block font-medium">{site.email}</span>
-                      <span className="block text-sm text-muted">Project enquiries and proposals</span>
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a href={`mailto:${site.partnerEmail}`} className="group flex items-center gap-4 rounded-2xl border border-line bg-card p-4 hover:border-silver transition-colors">
-                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand"><Icon.mail /></span>
-                    <span>
-                      <span className="block font-medium">{site.partnerEmail}</span>
-                      <span className="block text-sm text-muted">Partnerships and vendor onboarding</span>
+                      <span className="block text-sm text-muted">Enquiries, proposals and partnerships</span>
                     </span>
                   </a>
                 </li>
@@ -297,6 +287,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
     </>
   );
 }

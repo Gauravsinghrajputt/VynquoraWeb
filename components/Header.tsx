@@ -30,7 +30,15 @@ export default function Header() {
       className={`sticky top-0 z-50 transition-colors ${scrolled || open ? "bg-bg/85 backdrop-blur-md border-b border-line" : "border-b border-transparent"}`}
     >
       <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" aria-label="Vynquora home" onClick={() => setOpen(false)}>
+        <Link
+          href="/"
+          aria-label="Vynquora home"
+          onClick={() => {
+            setOpen(false);
+            // Already on the homepage: go back to the top.
+            if (window.location.pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
           <Logo />
         </Link>
 
