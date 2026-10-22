@@ -31,21 +31,6 @@ const differences = [
   },
 ];
 
-const builds = [
-  {
-    title: "Property management platform",
-    body: "One of the 10+ products we've shipped.",
-  },
-  {
-    title: "Data verification system",
-    body: "Built to run at large scale.",
-  },
-  {
-    title: "Kriti",
-    body: "Our own AI assistant, built and maintained by us.",
-  },
-];
-
 export default function AboutPage() {
   const row = "flex flex-col gap-1 sm:flex-row sm:gap-6";
   const label = "w-36 shrink-0 text-muted";
@@ -53,7 +38,7 @@ export default function AboutPage() {
   return (
     <main>
       <PageHero
-        // eyebrow={`About ${site.name}`}
+        eyebrow={`About ${site.name}`}
         title="We build software, and we keep our word about it."
         intro={`${site.name} is a small, senior software team based in ${site.address.city}. We design, build and support web apps, mobile apps, AI features and the cloud systems behind them, for growing businesses and as a delivery partner for larger teams.`}
       >
@@ -108,7 +93,7 @@ export default function AboutPage() {
       </section>
 
       {/* What we've built */}
-      <section className="py-24 sm:py-15">
+      <section className="py-24 sm:py-28">
         <div className={container}>
           <div className="max-w-3xl">
             <h2 className={h2}>What we&apos;ve built</h2>
@@ -119,29 +104,25 @@ export default function AboutPage() {
             </p>
           </div>
 
-          {/* <div className="mt-12 grid gap-5 sm:grid-cols-3">
-            {builds.map((b) => (
-              <div key={b.title} className="rounded-2xl border border-line bg-bg-alt p-7">
-                <h3 className="text-xl font-semibold tracking-[-0.02em]">{b.title}</h3>
-                <p className="mt-2.5 leading-relaxed text-muted">{b.body}</p>
+          {/*
+            TODO (proof): add real evidence here before publishing. Options:
+            - an anonymised result, e.g. "Month-end reconciliation went from three days to three hours"
+            - a client quote with name/role (or "Finance client, anonymised")
+            - a delivery stat, e.g. "X of Y projects delivered on the agreed date" (only if true)
+            - founding year ("Building software since 20XX")
+
+            Product cards (re-enable later): define
+              const builds = [{ title: "Kriti", body: "Our own AI assistant." }, ...];
+            above the component, then render:
+              <div className="mt-12 grid gap-5 sm:grid-cols-3">
+                {builds.map((b) => (
+                  <div key={b.title} className="rounded-2xl border border-line bg-bg-alt p-7">
+                    <h3 className="text-xl font-semibold tracking-[-0.02em]">{b.title}</h3>
+                    <p className="mt-2.5 leading-relaxed text-muted">{b.body}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div> */}
-
-          <div className="max-w-3xl">
-            {/*
-              TODO (proof): add real evidence here before publishing. Options:
-              - an anonymised result, e.g. "Month-end reconciliation went from three days to three hours"
-              - a client quote with name/role (or "Finance client, anonymised")
-              - a delivery stat, e.g. "X of Y projects delivered on the agreed date" (only if true)
-              - founding year ("Building software since 20XX")
-
-              <blockquote className="mt-10 border-l-4 border-brand pl-6 text-xl text-ink">
-                &ldquo;Your quote or result here.&rdquo;
-                <footer className="mt-2 text-base text-muted">Client name / role</footer>
-              </blockquote>
-            */}
-          </div>
+          */}
         </div>
       </section>
 
