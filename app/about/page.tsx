@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
+import CtaBand from "@/components/CtaBand";
 import { Icon, Social } from "@/components/Icons";
-import { site, services, promises, stats, stack } from "@/lib/site";
+import { site } from "@/lib/site";
+import { container, h2 } from "@/lib/ui";
 
 export const metadata: Metadata = {
   title: "About us",
@@ -11,191 +12,203 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-const container = "mx-auto max-w-6xl px-5 sm:px-8";
+const differences = [
+  {
+    title: "Talk to the engineers",
+    body: "You speak directly to the people writing your code, with no account managers in between.",
+  },
+  {
+    title: "See progress every week",
+    body: "Working software on a real link, every week, so you can change direction while it's still cheap.",
+  },
+  {
+    title: "Everything is yours",
+    body: "Your code, designs, accounts and data are yours from day one, in your own GitHub and cloud.",
+  },
+  {
+    title: "Confidential and upfront",
+    body: "We sign an NDA before the first detailed conversation, and we tell you early when something is late or hard.",
+  },
+];
 
-const values = [
+const builds = [
   {
-    title: "Plain language",
-    body: "Proposals, updates and invoices you can read without a technical dictionary. If something is late or hard, we say so early.",
+    title: "Property management platform",
+    body: "One of the 10+ products we've shipped.",
   },
   {
-    title: "Working software every week",
-    body: "You see progress on a real link, not slides. Feedback goes in while it is still cheap to change direction.",
+    title: "Data verification system",
+    body: "Built to run at large scale.",
   },
   {
-    title: "Built to be handed over",
-    body: "Clean code, documented setup and your own accounts, so your team or any future vendor can pick it up.",
-  },
-  {
-    title: "On time, as agreed",
-    body: "Scope, timeline and price are written down before we start. Changes are quoted up front, never added later.",
+    title: "Kriti",
+    body: "Our own AI assistant, built and maintained by us.",
   },
 ];
 
 export default function AboutPage() {
-  const sectionHead = "text-[2.1rem] sm:text-5xl font-semibold tracking-[-0.035em] leading-[1.05]";
+  const row = "flex flex-col gap-1 sm:flex-row sm:gap-6";
+  const label = "w-36 shrink-0 text-muted";
 
   return (
-    <>
-      <Header />
-      <main>
-        {/* Intro */}
-        <section className="border-b border-line">
-          <div className={`${container} pt-16 pb-16 sm:pt-24 sm:pb-20`}>
-            <p className="text-sm font-medium text-brand">About {site.name}</p>
-            <h1 className="mt-4 max-w-4xl text-[2.75rem] leading-[1.02] sm:text-6xl font-semibold tracking-[-0.045em]">
-              A software company built around one promise: deliver what we agreed, when we agreed.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg sm:text-xl text-muted leading-relaxed">
-              {site.name} is a software development company based in {site.address.locality}, {site.address.city}. We design, build and
-              support web apps, mobile apps, AI features and the cloud systems behind them, for growing businesses and as a delivery
-              partner for larger teams.
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link href="/#contact" className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-4 font-medium text-brand-ink hover:bg-brand-hover transition-colors">
-                Start a conversation
-                <Icon.arrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-              <Link href="/work" className="inline-flex items-center justify-center rounded-full border border-line px-7 py-4 font-medium text-ink hover:border-silver hover:bg-bg-alt transition-colors">
-                See our work
-              </Link>
-            </div>
-          </div>
-        </section>
+    <main>
+      <PageHero
+        // eyebrow={`About ${site.name}`}
+        title="We build software, and we keep our word about it."
+        intro={`${site.name} is a small, senior software team based in ${site.address.city}. We design, build and support web apps, mobile apps, AI features and the cloud systems behind them, for growing businesses and as a delivery partner for larger teams.`}
+      >
+        <Link
+          href="/contact"
+          className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-4 font-medium text-brand-ink hover:bg-brand-hover transition-colors"
+        >
+          Start a conversation
+          <Icon.arrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+        </Link>
+        <Link
+          href="/work"
+          className="inline-flex items-center justify-center rounded-full border border-line px-7 py-4 font-medium text-ink hover:border-silver hover:bg-bg-alt transition-colors"
+        >
+          See our work
+        </Link>
+      </PageHero>
 
-        {/* Facts */}
-        <section className="bg-bg-alt border-b border-line">
-          <dl className={`${container} grid grid-cols-2 lg:grid-cols-4`}>
-            {stats.map((s, i) => (
-              <div key={s.label} className={`py-8 pr-4 ${i % 2 === 1 ? "pl-6 border-l border-line" : ""} ${i >= 2 ? "border-t border-line lg:border-t-0" : ""} ${i === 2 ? "lg:pl-6 lg:border-l" : ""}`}>
-                <dt className="sr-only">{s.label}</dt>
-                <dd className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em]">{s.value}</dd>
-                <dd className="mt-1.5 text-sm text-muted leading-snug">{s.label}</dd>
+      {/* Our story */}
+      <section className="py-24 sm:py-28">
+        <div className={`${container} grid gap-10 lg:grid-cols-2 lg:gap-16`}>
+          <h2 className={`${h2} max-w-md`}>Why {site.name} exists</h2>
+          <div className="space-y-5 text-lg leading-relaxed text-muted">
+            <p>
+              Most software projects don&apos;t fail because the code is bad. They fail because the promises were vague: a scope
+              that drifted, a deadline that slid, and a team you never really got to talk to. {site.name} was started to fix
+              that. We agree on what gets built, what it costs and when it ships, and then we deliver exactly that.
+            </p>
+            <p>
+              We&apos;re a small, senior team based in {site.address.city}. Some of our clients are growing businesses replacing
+              spreadsheets and WhatsApp groups with real systems. Others are larger companies that bring us in as a delivery
+              partner when they need more engineering capacity.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* How we're different */}
+      <section className="bg-ink text-bg py-24 sm:py-28 dark:bg-bg-alt dark:text-ink">
+        <div className={container}>
+          <h2 className={`${h2} max-w-2xl`}>How we&apos;re different</h2>
+          <div className="mt-14 grid gap-px overflow-hidden rounded-3xl bg-white/10 dark:bg-line sm:grid-cols-2 lg:grid-cols-4">
+            {differences.map((d, i) => (
+              <div key={d.title} className="bg-ink p-8 lg:p-9 dark:bg-card">
+                <span className="text-sm font-medium opacity-50">0{i + 1}</span>
+                <h3 className="mt-4 text-xl font-semibold tracking-[-0.02em]">{d.title}</h3>
+                <p className="mt-3 text-base leading-relaxed opacity-70">{d.body}</p>
               </div>
             ))}
-          </dl>
-        </section>
-
-        {/* What we do */}
-        <section className="py-24 sm:py-28">
-          <div className={`${container} grid gap-12 lg:grid-cols-[0.9fr_1.1fr]`}>
-            <div>
-              <h2 className={sectionHead}>What we do</h2>
-              <p className="mt-5 text-lg text-muted leading-relaxed">
-                One team takes responsibility from the first screen to the server it runs on, so nothing falls between vendors.
-              </p>
-            </div>
-            <ul className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2">
-              {services.map((s) => {
-                const I = Icon[s.icon as keyof typeof Icon];
-                return (
-                  <li key={s.title} className="bg-card p-6">
-                    <I className="h-5 w-5 text-brand" />
-                    <h3 className="mt-4 font-semibold">{s.title}</h3>
-                    <p className="mt-2 text-sm text-muted leading-relaxed">{s.body}</p>
-                  </li>
-                );
-              })}
-            </ul>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* How we work */}
-        <section className="border-t border-line bg-ink text-bg py-24 sm:py-28 dark:bg-bg-alt dark:text-ink">
-          <div className={container}>
-            <h2 className={`${sectionHead} max-w-2xl`}>How we work with clients and partners</h2>
-            <div className="mt-14 grid gap-px overflow-hidden rounded-3xl bg-white/10 dark:bg-line sm:grid-cols-2 lg:grid-cols-4">
-              {[...promises, ...values].slice(0, 8).map((p) => (
-                <div key={p.title} className="bg-ink p-7 dark:bg-card">
-                  <h3 className="text-lg font-semibold">{p.title}</h3>
-                  <p className="mt-2.5 leading-relaxed opacity-70">{p.body}</p>
-                </div>
-              ))}
-            </div>
+      {/* What we've built */}
+      <section className="py-24 sm:py-15">
+        <div className={container}>
+          <div className="max-w-3xl">
+            <h2 className={h2}>What we&apos;ve built</h2>
+            <p className="mt-5 text-lg leading-relaxed text-muted">
+              We&apos;ve shipped multiple products, from a property management platform and a large-scale data verification
+              system to Kriti, our own AI assistant. Building our own product keeps us honest. We know what it&apos;s like to
+              maintain software after launch, so we build client projects to be maintained.
+            </p>
           </div>
-        </section>
 
-        {/* Partner with us */}
-        <section className="py-24 sm:py-28">
-          <div className={`${container} grid gap-12 lg:grid-cols-2 lg:items-start`}>
-            <div>
-              <h2 className={sectionHead}>Working with larger teams</h2>
-              <p className="mt-5 text-lg text-muted leading-relaxed">
-                We work as a delivery partner and vendor for companies that need extra engineering capacity: a module, an internal tool,
-                an AI feature or a full product, delivered under your NDA, security rules and review process.
-              </p>
-              <ul className="mt-8 space-y-3">
-                {[
-                  "NDA and vendor agreements signed before detailed discussions",
-                  "Work in your repositories, cloud and project tools",
-                  "One accountable point of contact who is also on the build",
-                  "Written scope, weekly demos and documented hand-over",
-                ].map((t) => (
-                  <li key={t} className="flex gap-3">
-                    <Icon.check className="mt-1 h-4 w-4 shrink-0 text-brand" />
-                    <span>{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="rounded-3xl border border-line bg-bg-alt p-7 sm:p-9">
-              <h3 className="text-xl font-semibold tracking-[-0.02em]">Company details</h3>
-              <dl className="mt-6 space-y-4 text-[15px]">
-                <div className="flex flex-col gap-1 sm:flex-row sm:gap-6">
-                  <dt className="w-36 shrink-0 text-muted">Company</dt>
-                  <dd>{site.legalName || site.name}</dd>
-                </div>
-                <div className="flex flex-col gap-1 sm:flex-row sm:gap-6">
-                  <dt className="w-36 shrink-0 text-muted">Location</dt>
-                  <dd>{site.address.locality}, {site.address.city}, {site.address.countryName}</dd>
-                </div>
-                <div className="flex flex-col gap-1 sm:flex-row sm:gap-6">
-                  <dt className="w-36 shrink-0 text-muted">Enquiries</dt>
-                  <dd><a href={`mailto:${site.email}`} className="hover:text-brand">{site.email}</a></dd>
-                </div>
-                <div className="flex flex-col gap-1 sm:flex-row sm:gap-6">
-                  <dt className="w-36 shrink-0 text-muted">Partnerships</dt>
-                  <dd><a href={`mailto:${site.partnerEmail}`} className="hover:text-brand">{site.partnerEmail}</a></dd>
-                </div>
-                <div className="flex flex-col gap-1 sm:flex-row sm:gap-6">
-                  <dt className="w-36 shrink-0 text-muted">Phone</dt>
-                  <dd><a href={`tel:${site.phone.replace(/\s/g, "")}`} className="hover:text-brand">{site.phone}</a></dd>
-                </div>
-                <div className="flex flex-col gap-1 sm:flex-row sm:gap-6">
-                  <dt className="w-36 shrink-0 text-muted">Hours</dt>
-                  <dd>{site.hours}</dd>
-                </div>
-              </dl>
-              <div className="mt-7 flex gap-2 border-t border-line pt-6">
-                {site.socials.linkedin && (
-                  <a href={site.socials.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-2 text-sm font-medium hover:border-silver">
-                    <Social.linkedin className="h-4 w-4" /> LinkedIn
-                  </a>
-                )}
-                {site.socials.x && (
-                  <a href={site.socials.x} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-2 text-sm font-medium hover:border-silver">
-                    <Social.x className="h-4 w-4" /> X
-                  </a>
-                )}
+          {/* <div className="mt-12 grid gap-5 sm:grid-cols-3">
+            {builds.map((b) => (
+              <div key={b.title} className="rounded-2xl border border-line bg-bg-alt p-7">
+                <h3 className="text-xl font-semibold tracking-[-0.02em]">{b.title}</h3>
+                <p className="mt-2.5 leading-relaxed text-muted">{b.body}</p>
               </div>
+            ))}
+          </div> */}
+
+          <div className="max-w-3xl">
+            {/*
+              TODO (proof): add real evidence here before publishing. Options:
+              - an anonymised result, e.g. "Month-end reconciliation went from three days to three hours"
+              - a client quote with name/role (or "Finance client, anonymised")
+              - a delivery stat, e.g. "X of Y projects delivered on the agreed date" (only if true)
+              - founding year ("Building software since 20XX")
+
+              <blockquote className="mt-10 border-l-4 border-brand pl-6 text-xl text-ink">
+                &ldquo;Your quote or result here.&rdquo;
+                <footer className="mt-2 text-base text-muted">Client name / role</footer>
+              </blockquote>
+            */}
+          </div>
+        </div>
+      </section>
+
+      {/* Company details */}
+      <section className="border-t border-line py-24 sm:py-28">
+        <div className={`${container} grid gap-12 lg:grid-cols-2 lg:items-start`}>
+          <div>
+            <h2 className={h2}>Based in Bengaluru, working worldwide</h2>
+            <p className="mt-5 text-lg text-muted leading-relaxed">
+              Our team works with clients in India and abroad, from first idea to long-term support.
+            </p>
+            <p className="mt-4 text-lg text-muted leading-relaxed">
+              Looking for a delivery partner for your own team? Read how we{" "}
+              <Link href="/how-we-work" className="font-medium text-ink underline underline-offset-4 hover:text-brand">
+                work with larger companies
+              </Link>
+              .
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-line bg-bg-alt p-7 sm:p-9">
+            <h3 className="text-xl font-semibold tracking-[-0.02em]">Company details</h3>
+            <dl className="mt-6 space-y-4 text-[15px]">
+              <div className={row}>
+                <dt className={label}>Company</dt>
+                <dd>{site.legalName || site.name}</dd>
+              </div>
+              <div className={row}>
+                <dt className={label}>Location</dt>
+                <dd>{site.address.locality}, {site.address.city}, {site.address.countryName}</dd>
+              </div>
+              <div className={row}>
+                <dt className={label}>Enquiries</dt>
+                <dd><a href={`mailto:${site.email}`} className="hover:text-brand">{site.email}</a></dd>
+              </div>
+              <div className={row}>
+                <dt className={label}>Partnerships</dt>
+                <dd><a href={`mailto:${site.partnerEmail}`} className="hover:text-brand">{site.partnerEmail}</a></dd>
+              </div>
+              <div className={row}>
+                <dt className={label}>Phone</dt>
+                <dd><a href={`tel:${site.phone.replace(/\s/g, "")}`} className="hover:text-brand">{site.phone}</a></dd>
+              </div>
+              <div className={row}>
+                <dt className={label}>Hours</dt>
+                <dd>{site.hours}</dd>
+              </div>
+            </dl>
+            <div className="mt-7 flex gap-2 border-t border-line pt-6">
+              {site.socials.linkedin && (
+                <a href={site.socials.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-2 text-sm font-medium hover:border-silver">
+                  <Social.linkedin className="h-4 w-4" /> LinkedIn
+                </a>
+              )}
+              {site.socials.x && (
+                <a href={site.socials.x} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-2 text-sm font-medium hover:border-silver">
+                  <Social.x className="h-4 w-4" /> X
+                </a>
+              )}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Stack */}
-        <section className="border-t border-line bg-bg-alt py-20">
-          <div className={container}>
-            <p className="text-sm text-muted">Tools we use every day</p>
-            <ul className="mt-5 flex flex-wrap gap-2.5">
-              {stack.map((t) => (
-                <li key={t} className="rounded-full border border-line bg-card px-4 py-2 text-sm">{t}</li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+      <div className="border-t border-line">
+        <CtaBand />
+      </div>
+    </main>
   );
 }

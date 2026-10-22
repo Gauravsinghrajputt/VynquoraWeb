@@ -12,8 +12,13 @@ Almost everything (company details, emails, socials, services, projects, FAQ) li
 - **Socials:** `socials` in `lib/site.ts` (LinkedIn and X are set).
 - **Google Search Console:** paste the verification code into `googleVerification`.
 
+## Human-in-the-loop PDF
+The "Read more (PDF)" button on the homepage opens `public/docs/human-in-the-loop.pdf`.
+Put your PDF there with exactly that name. The text of the section is `hitl` and `otherPrinciples` in `lib/site.ts`.
+
 ## Pages
-`/` home · `/work` · `/work/<slug>` · `/about` · `/privacy` · `/terms` · custom 404.
+`/` home (overview) · `/services` · `/work` and `/work/<slug>` · `/how-we-work` · `/about` · `/contact` (form + FAQ) · `/privacy` · `/terms` · custom 404.
+Header and footer are in `app/layout.tsx`, so every page shares them. Menu links are `navLinks` in `lib/site.ts`.
 SEO files are generated automatically: `/sitemap.xml`, `/robots.txt`, `/manifest.webmanifest`, `/opengraph-image`.
 
 ## Add a project
@@ -24,7 +29,7 @@ SEO files are generated automatically: `/sitemap.xml`, `/robots.txt`, `/manifest
 ## Contact form (Web3Forms)
 1. Go to https://web3forms.com → enter `info@vynquora.com` → you get an access key by email.
 2. Vercel → Project → Settings → Environment Variables → add `NEXT_PUBLIC_WEB3FORMS_KEY` = the key.
-3. Redeploy. Until the key is set, the form asks visitors to email or WhatsApp instead.
+3. Redeploy (the key is read at build time, so a new deploy is needed after adding or changing it). Until the key is set, the form asks visitors to email or WhatsApp instead.
 
 ## Run locally
 ```bash

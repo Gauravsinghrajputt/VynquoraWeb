@@ -5,8 +5,9 @@
 
 export const site = {
   name: "Vynquora",
-  // Registered company name (footer copyright, About, Privacy, Terms).
-  legalName: "Vynquora Global Services",
+  // Registered company name. Leave "" until it's confirmed — the footer
+  // then shows just "Vynquora". Example: "Vynquora Global Services".
+  legalName: "",
   domain: "vynquora.com",
   url: "https://vynquora.com",
   tagline: "Software development company in Bengaluru",
@@ -21,19 +22,19 @@ export const site = {
 
   email: "info@vynquora.com",          // enquiries, proposals, contact form
   partnerEmail: "team@vynquora.com",   // partnerships & vendor onboarding
-  phone: "+91 97416 99033",
+  phone: "+91 84272 59874",
   // WhatsApp number: country code + number, digits only
-  whatsapp: "919741699033",
+  whatsapp: "918427259874",
   hours: "Mon to Sat, 10am to 7pm IST",
 
   address: {
-    locality: "Koramangala 5th Block",
+    locality: "Koramangala",
     city: "Bengaluru",
     region: "Karnataka",
     country: "IN",
     countryName: "India",
   },
-  location: "Working with clients in India and worldwide",
+  location: "Koramangala, Bengaluru, India · Working with clients worldwide",
 
   // Social profiles. Leave "" to hide an icon.
   socials: {
@@ -58,36 +59,42 @@ export const stats = [
 export const services = [
   {
     icon: "app",
+    problem: "Chasing payments and dues by hand",
     title: "Web apps & dashboards",
     body: "Admin panels, customer portals, billing and booking systems that replace spreadsheets and WhatsApp groups.",
     tags: ["React", "Next.js", "Node.js", "Python"],
   },
   {
     icon: "ai",
+    problem: "Answering the same questions all day",
     title: "AI features & chatbots",
     body: "Assistants that answer your customers, search your documents, or write and design content, built into your product.",
     tags: ["OpenAI", "Gemini", "RAG", "Agents"],
   },
   {
     icon: "phone",
+    problem: "Customers who expect an app",
     title: "Mobile apps",
     body: "iOS and Android from one codebase, so you launch on both stores without paying for two apps.",
     tags: ["React Native", "Expo"],
   },
   {
     icon: "globe",
+    problem: "A website that brings no enquiries",
     title: "Business websites",
     body: "Fast, search-friendly websites and landing pages that turn visitors into enquiries.",
     tags: ["Next.js", "SEO", "CMS"],
   },
   {
     icon: "cloud",
+    problem: "Servers, releases and downtime worries",
     title: "Cloud, DevOps & hosting",
     body: "Automated deployments, monitoring, backups and security on AWS, Vercel or your own servers.",
     tags: ["AWS", "Docker", "CI/CD", "Terraform"],
   },
   {
     icon: "search",
+    problem: "Unsure if your code or a quote is sound",
     title: "Code audits & tech guidance",
     body: "A clear second opinion on your codebase, architecture or a vendor's quote, written in plain language.",
     tags: ["Reviews", "Architecture", "Planning"],
@@ -241,6 +248,41 @@ export const projects: Project[] = [
   // },
 ];
 
+// ─── PRINCIPLES (homepage section after the hero) ───────────
+// Put the PDF at public/docs/human-in-the-loop.pdf
+export const hitlPdf = "/docs/human-in-the-loop.pdf";
+
+export const hitl = {
+  title: "Human in the loop: AI proposes, people decide.",
+  body: "Nothing AI produces goes live on its own. Every output that carries risk is reviewed by a person with the right expertise, who decides whether it is practical, compliant and safe to use.",
+  flow: [
+    "AI output",
+    "Confidence check",
+    "Expert review",
+    "Approve, correct or reject",
+    "Feedback improves the next output",
+  ],
+  checks: [
+    { q: "Correct?", a: "Is it accurate and grounded in your own data?" },
+    { q: "Practical?", a: "Will it work in real operations, at real cost and scale?" },
+    { q: "Compliant?", a: "Does it meet the laws, policies and contracts that apply to you?" },
+    { q: "Explainable?", a: "Can we show why it decided that, if an auditor asks?" },
+  ],
+};
+
+export const otherPrinciples = [
+  {
+    title: "Secure and auditable by design",
+    body: "Every decision is logged: what the AI saw, what it suggested, who reviewed it and what they changed. Your data stays yours, access is limited to the people who need it, and you own the code.",
+    tags: ["NDA first", "Full audit trail", "You own the code"],
+  },
+  {
+    title: "Pilot first, scale on proof",
+    body: "We start with one workflow, measure it against a baseline you agree up front, and expand only when the results hold. Fixed scope and fixed price at every stage.",
+    tags: ["Weekly builds", "Agreed success metric", "Fixed price"],
+  },
+];
+
 export const process = [
   {
     title: "Free discovery call",
@@ -310,6 +352,41 @@ export const faqs = [
     q: "What happens after launch?",
     a: "You get 30 days of free support. After that, you can choose a monthly maintenance plan or call us only when you need something.",
   },
+];
+
+// Used on the "How we work" page
+export const values = [
+  {
+    title: "Plain language",
+    body: "Proposals, updates and invoices you can read without a technical dictionary. If something is late or hard, we say so early.",
+  },
+  {
+    title: "Working software every week",
+    body: "You see progress on a real link, not slides. Feedback goes in while it is still cheap to change direction.",
+  },
+  {
+    title: "Built to be handed over",
+    body: "Clean code, documented setup and your own accounts, so your team or any future vendor can pick it up.",
+  },
+  {
+    title: "On time, as agreed",
+    body: "Scope, timeline and price are written down before we start. Changes are quoted up front, never added later.",
+  },
+];
+
+export const partnerPoints = [
+  "NDA and vendor agreements signed before detailed discussions",
+  "Work in your repositories, cloud and project tools",
+  "One accountable point of contact who is also on the build",
+  "Written scope, weekly demos and documented hand-over",
+];
+
+// Main navigation (header and footer)
+export const navLinks = [
+  { href: "/services", label: "Services" },
+  { href: "/work", label: "Solutions" },
+  { href: "/how-we-work", label: "How we execute" },
+  { href: "/about", label: "About" },
 ];
 
 export const projectTypes = [

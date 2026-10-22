@@ -15,7 +15,7 @@ export default function NdaCard() {
           Dashboards, booking and billing systems, and internal tools for businesses in real estate, services and retail.
         </p>
       </div>
-      <Link href="/#contact" className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-ink px-5 py-3 font-medium text-bg hover:opacity-90">
+      <Link href="/contact" className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-ink px-5 py-3 font-medium text-bg hover:opacity-90">
         Ask for a private walkthrough <Icon.arrow className="h-4 w-4" />
       </Link>
     </div>

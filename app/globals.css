@@ -49,7 +49,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 5rem;
 }
 
@@ -86,9 +85,15 @@ body {
 .rise-3 { animation-delay: .3s; }
 .orbit-draw { stroke-dasharray: 1; animation: draw 1.6s cubic-bezier(.4,0,.2,1) .2s both; }
 
+/* Soft fade when moving between pages (see app/template.tsx) */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+.page-enter { animation: page-in .4s cubic-bezier(.2,.7,.2,1) both; }
+
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .rise, .orbit-draw { animation: none; }
+  .rise, .orbit-draw, .page-enter { animation: none; }
 }
 
 details > summary { list-style: none; }

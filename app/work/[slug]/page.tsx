@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import BrowserFrame from "@/components/BrowserFrame";
 import { Icon } from "@/components/Icons";
 import { projects } from "@/lib/site";
@@ -34,9 +32,8 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
 
   return (
     <>
-      <Header />
       <main>
-        <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-10 sm:pt-16">
+        <section className="mx-auto max-w-6xl px-5 sm:px-8 2xl:max-w-7xl pt-10 sm:pt-16">
           <Link href="/work" className="inline-flex items-center gap-2 text-sm text-muted hover:text-ink">
             <Icon.arrow className="h-4 w-4 rotate-180" /> All projects
           </Link>
@@ -52,7 +49,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
                   Open live product <Icon.external className="h-4 w-4" />
                 </a>
               )}
-              <Link href="/#contact" className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3.5 font-medium hover:border-silver hover:bg-bg-alt transition-colors">
+              <Link href="/contact" className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3.5 font-medium hover:border-silver hover:bg-bg-alt transition-colors">
                 Build something similar
               </Link>
             </div>
@@ -62,7 +59,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-5 sm:px-8 py-20 sm:py-24">
+        <section className="mx-auto max-w-6xl px-5 sm:px-8 2xl:max-w-7xl py-20 sm:py-24">
           <div className="grid gap-14 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
               <h2 className="text-3xl font-semibold tracking-[-0.03em]">The brief</h2>
@@ -100,7 +97,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
 
         {projects.length > 1 && next.slug !== p.slug && (
           <section className="border-t border-line">
-            <Link href={`/work/${next.slug}`} className="group mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 sm:px-8 py-14">
+            <Link href={`/work/${next.slug}`} className="group mx-auto flex max-w-6xl 2xl:max-w-7xl items-center justify-between gap-6 px-5 sm:px-8 py-14">
               <span>
                 <span className="block text-sm text-muted">Next project</span>
                 <span className="mt-1 block text-3xl sm:text-4xl font-semibold tracking-[-0.035em]">{next.name}</span>
@@ -110,7 +107,6 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
           </section>
         )}
       </main>
-      <Footer />
     </>
   );
 }
